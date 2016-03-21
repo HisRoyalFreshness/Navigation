@@ -101,23 +101,29 @@ def ManuallyAddUser():
     return (UserName,Password,FirstName,LastName,Email,"None","None","None","None")
 
 def main():
-    a=input("")
-    if a=="q":
-        User=("TotallyNotJiminy","19Christian","Jiminy","Haynes","jiminy@jjhaynes.co.uk","None","None","None","None")
-        valid=ValidateUser(User)
-        if valid:
-            AddUserToDatabase(User)
-            print("success")
-    elif a=="w":
-        valid=ValidateUser(("TotlyNotJiminy","19Christian","Jiminy","Haynes","jiminy@jjhaynes.co.uk","None","None","None","None"))
-    elif a=="e":
-        User=ManuallyAddUser()
-        valid=ValidateUser(User)
-        if valid:
-            AddUserToDatabase(User)
-            print("Success")
+    while 1:
+        print("r - add user")
+        print("w - test validation")
+        print("e - manaully add user")
+        print("q- exit")
+        a=input("")
+        if a=="r":
+            User=("TotallyNotJiminy","19Christian","Jiminy","Haynes","jiminy@jjhaynes.co.uk","None","None","None","None")
+            valid=ValidateUser(User)
+            if valid:
+                AddUserToDatabase(User)
+                print("success")
+        elif a=="w":
+            valid=ValidateUser(("TotlyNotJiminy","19Christian","Jiminy","Haynes","jiminy@jjhaynes.co.uk","None","None","None","None"))
+        elif a=="e":
+            User=ManuallyAddUser()
+            valid=ValidateUser(User)
+            if valid:
+                AddUserToDatabase(User)
+                print("Success")
+        elif a=="q":
+            return
 
 if __name__=="__main__":
-    while 1:
         main()
     
