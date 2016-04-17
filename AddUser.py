@@ -2,6 +2,10 @@ import sqlite3
 import re
 
 def ValidateUser(values):
+    """function that validates the user data, returns true or false
+    depending on the validity, pass in a tuple of data containing
+    the username,password,firstname,lastname,email in that order"""
+    
     if UsernameValidation(values[0]):
         if PasswordValidation(values[1]):
             if FirstNameValidation(values[2]):
@@ -13,7 +17,10 @@ def ValidateUser(values):
     return False
 
 def EmailValidation(email):
-    
+    """function that validates the email to see if it's accurate
+    and not already registered to another account, pass in a string
+    containing the email
+    """
     with sqlite3.connect("database.db") as db:
             cursor=db.cursor()
             sql="select Email from User"
@@ -34,6 +41,8 @@ def EmailValidation(email):
     return True
 
 def FirstNameValidation(firstname):
+    """Function that validates the first name, returning true or false
+    depending on the validity of the name"""
     if 2<len(firstname)<20:
         return True
     else:
@@ -41,6 +50,8 @@ def FirstNameValidation(firstname):
         return False
     
 def LastNameValidation(lastname):
+    """Function that validates the last name, returning true or false
+    depending on the validity of the name"""
     if 2<len(lastname)<20:
         return True
     else:
@@ -48,6 +59,8 @@ def LastNameValidation(lastname):
         return False
 
 def PasswordValidation(password):
+    """Function that validates the password, returning true or false
+    depending on the validity of the password"""
     if not any(char.isdigit() for char in password):
         print("Password does not contain a number!")
         return False
@@ -58,6 +71,9 @@ def PasswordValidation(password):
         return False
     
 def UsernameValidation(username):
+    """Function that validates the username, returning true or false
+    depending on the validity of the name, it also checks the
+    database to make sure that the username is not currently in use"""
     if 6<len(username)<18: 
         with sqlite3.connect("database.db") as db:
             cursor=db.cursor()
@@ -74,6 +90,9 @@ def UsernameValidation(username):
         return False
     
 def AddUserToDatabase(values):
+    """Function that inserts a neww user into the database,
+    pass in a tuple containing the data in the following order:
+    username, password,firstname,lastname,email,none,none,none,none"""
     with sqlite3.connect("Database.db") as db:
         cursor=db.cursor()
         sql="""insert into User (
@@ -93,6 +112,7 @@ def AddUserToDatabase(values):
         db.commit()
         
 def ManuallyAddUser():
+    """A way to add a user without going through for the site, only for server technicians"""
     UserName=input("Please input username: ")
     Password=input("Please input password: ")
     FirstName=input("Please input first name: ")

@@ -16,11 +16,12 @@ def AddLocation():
             break
         except:
             print("Not a valid longitude!")
-
     Link=input("Please enter the link for the location: ")
-    sql="select LocationID from Location"
-    cursor.execute(sql)
-    total=cursor.fetchall()
+    with sqlite3.connect("Database.db") as db:
+        cursor=db.cursor()
+        sql="select LocationID from Location"
+        cursor.execute(sql)
+        total=cursor.fetchall()
     LocationID=1
     for each in total:
         LocationID+=1
@@ -57,7 +58,8 @@ def AddLocationToDatabase(values):
         db.commit()
         
 def EditLocation():
-    pass
+    ViewLocation()
+    
 
 def DeleteLocation():
     pass
